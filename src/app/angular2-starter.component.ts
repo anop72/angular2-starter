@@ -12,35 +12,11 @@ import { Playlist } from './model/playlist';
 })
 export class Angular2StarterAppComponent {
   title = 'angular2-starter works!';
-  playlists: Array<Playlist> = [];
 
   constructor(http: Http) {
-    /*http.get('http://www.anop72.info/api/playlist/2.json')
-        .map(res => res.json())
-        .map((res:Array<any>) => {
-            if (res) {
-                res.forEach(r => {
-                    this.playlists.push(new Playlist(r.id, r.count, r.filePath, r.title));
-                    console.log(r.title);
-                })
-            }
-            return this.playlists;
-        })
-        .subscribe(res => {
-            console.log(res);
-        });
-    console.log('----#1');*/
-
     http.get('http://www.anop72.info/api/playlist.json')
         .map(res => res.json())
-        .map((res:Array<any>) => {
-            if (res) {
-                res.forEach(r => {
-                    this.playlists.push(new Playlist(r.id, null, null, r.name));
-                })
-            }
-            return this.playlists;
-        })
+        .map(this.parsePlaylist)
         .subscribe((res:Array<Playlist>) => {
             if (res) {
                 let selectedUrl = 'http://www.anop72.info/api/playlist/'+
@@ -59,6 +35,17 @@ export class Angular2StarterAppComponent {
                 });
             }
         });
-    console.log('----#2');
+    console.log('----');
   }
+
+  private parsePlaylist(items: Array<any>) : Array<Playlist> {
+      let result: Array<Playlist> = [];
+      if (items) {
+          items.forEach(item => {
+              result.push(new Playlist(item.id, null, null, item.name));
+          })
+      }
+      return result;
+  }
+
 }
