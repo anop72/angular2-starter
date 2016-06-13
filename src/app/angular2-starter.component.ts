@@ -15,7 +15,7 @@ export class Angular2StarterAppComponent {
   playlists: Array<Playlist> = [];
 
   constructor(http: Http) {
-    http.get('http://www.anop72.info/api/playlist/2.json')
+    /*http.get('http://www.anop72.info/api/playlist/2.json')
         .map(res => res.json())
         .map((res:Array<any>) => {
             if (res) {
@@ -29,6 +29,36 @@ export class Angular2StarterAppComponent {
         .subscribe(res => {
             console.log(res);
         });
-    console.log('----');
+    console.log('----#1');*/
+
+    http.get('http://www.anop72.info/api/playlist.json')
+        .map(res => res.json())
+        .map((res:Array<any>) => {
+            if (res) {
+                res.forEach(r => {
+                    this.playlists.push(new Playlist(r.id, null, null, r.name));
+                })
+            }
+            return this.playlists;
+        })
+        .subscribe((res:Array<Playlist>) => {
+            if (res) {
+                let selectedUrl = 'http://www.anop72.info/api/playlist/'+
+                res.forEach(pl => {
+                    let selectedUrl = 'http://www.anop72.info/api/playlist/'+pl.id+'.json';
+                    console.log(selectedUrl);
+                    http.get(selectedUrl)
+                        .map(res => res.json())
+                        .subscribe((res:Array<any>) => {
+                            if (res) {
+                                res.forEach(plSelected => {
+                                    console.log(plSelected);
+                                })
+                            }
+                        })
+                });
+            }
+        });
+    console.log('----#2');
   }
 }
