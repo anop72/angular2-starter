@@ -13,26 +13,13 @@ import { Playlist } from './model/playlist';
 export class Angular2StarterAppComponent {
   title = 'angular2-starter works!';
 
-  constructor(http: Http) {
+  constructor(private http: Http) {
     http.get('http://www.anop72.info/api/playlist.json')
         .map(res => res.json())
         .map(this.parsePlaylist)
         .subscribe((res:Array<Playlist>) => {
             if (res) {
-                let selectedUrl = 'http://www.anop72.info/api/playlist/'+
-                res.forEach(pl => {
-                    let selectedUrl = 'http://www.anop72.info/api/playlist/'+pl.id+'.json';
-                    console.log(selectedUrl);
-                    http.get(selectedUrl)
-                        .map(res => res.json())
-                        .subscribe((res:Array<any>) => {
-                            if (res) {
-                                res.forEach(plSelected => {
-                                    console.log(plSelected);
-                                })
-                            }
-                        })
-                });
+                res.forEach(pl => this.getPlaylistById(pl));
             }
         });
     console.log('----');
@@ -46,6 +33,20 @@ export class Angular2StarterAppComponent {
           })
       }
       return result;
+  }
+
+  private getPlaylistById(playlist: Playlist) {
+      let selectedUrl = 'http://www.anop72.info/api/playlist/'+playlist.id+'.json';
+      console.log(selectedUrl);
+      this.http.get(selectedUrl)
+          .map(res => res.json())
+          .subscribe((res:Array<any>) => {
+              if (res) {
+                  res.forEach(plSelected => {
+                      console.log(plSelected);
+                  })
+              }
+          })
   }
 
 }
