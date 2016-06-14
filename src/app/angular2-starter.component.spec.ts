@@ -6,8 +6,9 @@ import {
   inject
 } from '@angular/core/testing';
 import { Angular2StarterAppComponent } from '../app/angular2-starter.component';
+import { HTTP_PROVIDERS } from '@angular/http';
 
-beforeEachProviders(() => [Angular2StarterAppComponent]);
+beforeEachProviders(() => [Angular2StarterAppComponent, HTTP_PROVIDERS]);
 
 describe('App: Angular2Starter', () => {
   it('should create the app',
