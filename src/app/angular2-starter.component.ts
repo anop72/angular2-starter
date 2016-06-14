@@ -3,17 +3,20 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Playlist } from './model/playlist';
+import { Angular2StarterService } from './starter.service'
 
 @Component({
   moduleId: module.id,
   selector: 'angular2-starter-app',
   templateUrl: 'angular2-starter.component.html',
-  styleUrls: ['angular2-starter.component.css']
+  styleUrls: ['angular2-starter.component.css'],
+  providers: [Angular2StarterService]
 })
 export class Angular2StarterAppComponent {
   title = 'angular2-starter works!';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, service: Angular2StarterService) {
+    console.log(service.get());
     http.get('http://www.anop72.info/api/playlist.json')
         .map(res => res.json())
         .map(this.parsePlaylist)
