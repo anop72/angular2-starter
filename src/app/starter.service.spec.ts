@@ -5,10 +5,19 @@ import {
   it,
   inject
 } from '@angular/core/testing';
-import { HTTP_PROVIDERS } from '@angular/http';
+import {provide} from '@angular/core';
+import {
+  ResponseOptions,
+  Response,
+  Http,
+  BaseRequestOptions,
+  RequestMethod
+} from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+
 import { Angular2StarterService } from './starter.service';
 
-beforeEachProviders(() => [Angular2StarterService, HTTP_PROVIDERS]);
+beforeEachProviders(() => [Angular2StarterService, MockBackend]);
 
 describe('Service: StarterService', () => {
 
