@@ -9,6 +9,10 @@ export class Angular2StarterService {
 
     constructor(private http: Http) {}
 
+    get() {
+        return 1;
+    }
+
     getPlaylists() {
         this.http.get('http://www.anop72.info/api/playlist.json')
             .map(res => res.json())
