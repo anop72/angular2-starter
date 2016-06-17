@@ -24,7 +24,7 @@ export class Angular2StarterService {
             });
     }
 
-    private parsePlaylist(items: Array<any>) : Array<Playlist> {
+    parsePlaylist(items: any) : Array<Playlist> {
         let result: Array<Playlist> = [];
         if (items) {
             items.forEach(item => {
