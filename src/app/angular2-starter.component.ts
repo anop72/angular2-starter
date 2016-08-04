@@ -12,8 +12,6 @@ export class Angular2StarterAppComponent {
   title = 'angular2-starter works!';
 
   constructor(service: Angular2StarterService) {
-    service.getPlaylists();
-    console.log('----');
   }
-  
+
 }
