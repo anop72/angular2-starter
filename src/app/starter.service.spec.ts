@@ -3,8 +3,7 @@ import {
   describe,
   expect,
   it,
-  inject,
-  injectAsync
+  inject
 } from '@angular/core/testing';
 
 import {provide} from '@angular/core';
